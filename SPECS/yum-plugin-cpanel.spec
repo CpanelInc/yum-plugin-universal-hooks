@@ -23,7 +23,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%{_libdir}/yum-plugins/cpanel.py
+%{_libdir}/yum-plugins/cpanel.py*
 %config(noreplace) %{_sysconfdir}/yum/pluginconf.d/cpanel.conf
 %{_sysconfdir}/yum/cpanel
 
