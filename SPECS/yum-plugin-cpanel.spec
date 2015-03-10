@@ -1,6 +1,6 @@
 Name: yum-plugin-cpanel
 Version: 0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Yum Plugin for cPanel servers
 
 Group: Development/Tools

@@ -4,7 +4,7 @@
 # copyright@cpanel.net                                         http://cpanel.net
 # This code is subject to the cPanel license. Unauthorized copying is prohibited
 
-import os, glob
+import os, glob, re
 from yum.plugins import PluginYumExit, TYPE_CORE, TYPE_INTERACTIVE
 
 requires_api_version = '2.3'
@@ -44,6 +44,19 @@ def _run_dir(dir, conduit, args = ''):
 
 def _run_pkg_dirs(base_dir, conduit, slot):
     ts = conduit.getTsInfo()
+
+    # setup __WILDCARD__ data for the slot
+    wc_slot_dir = base_dir + "/multi_pkgs/" + slot
+    wildcard_list = {};
+    for path in glob.glob(wc_slot_dir + "/*"):
+        if os.path.isdir(path):
+            path = os.path.basename(os.path.normpath(path))
+            regx = path;
+            regx = regx.replace("__WILDCARD__",".*")
+            regx = re.compile("^" + regx + "$")
+            wildcard_list[path] = regx
+    wildcard_to_run = {};
+
     for member in ts.getMembers():
 
         # TODO/YAGNI?: set state to a normalized 'not_installed' 'updatable' 'installed' and pass as third arg to _run_dir()
@@ -54,7 +67,14 @@ def _run_pkg_dirs(base_dir, conduit, slot):
         pkg = member.name
         _run_dir(base_dir + "/pkgs/" + pkg + "/" + slot, conduit);
 
-       # TODO: call _run_dir on any _WILDCARD_ paths that match the pkg
+        # note any __WILDCARD__ that need to run for pkg
+        for wc in wildcard_list:
+            if wildcard_list[wc].search(pkg):
+                wildcard_to_run[wc] = 1
+
+    # call _run_dir on any __WILDCARD__ paths that match the pkg
+    for wc_dir in wildcard_to_run:
+        _run_dir(wc_slot_dir + "/" + wc_dir, conduit)
 
 def config_hook(conduit):
     """
