@@ -25,8 +25,8 @@ def _run_dir(dir, conduit, args = ''):
         return None
 
     # TODO/YAGNI?: if yum called w/ --quiet: hide output from system() && do not call conduit.info()
-    # TODO/YAGNI?: if yum called w/ --verbose also output pre/post "running $cmd" region markers 
- 
+    # TODO/YAGNI?: if yum called w/ --verbose also output pre/post "running $cmd" region markers
+
     for script in glob.glob(dir + "/*"):
         if (os.access(script, os.X_OK)):
 
@@ -64,43 +64,43 @@ def config_hook(conduit):
 
     base_dir = conduit.confString('main','base_dir',def_base_dir)
     _run_dir(base_dir + "/config", conduit)
-    
+
 
 def postconfig_hook(conduit):
     """
-    Called immediately after Yum's config object is initialised. Useful for 
-    extending variables or modifying items in the config, for example the 
-    $ variables that are used in repo configuration. 
+    Called immediately after Yum's config object is initialised. Useful for
+    extending variables or modifying items in the config, for example the
+    $ variables that are used in repo configuration.
     Note: Only available in yum 3.1.7 or later
     """
-    
+
     base_dir = conduit.confString('main','base_dir',def_base_dir)
     _run_dir(base_dir + "/postconfig", conduit)
-    
+
 def init_hook(conduit):
     """
     Called early in Yum's initialisation. May be used for general plugin
     related initialisation.
     """
-    
+
     base_dir = conduit.confString('main','base_dir',def_base_dir)
     _run_dir(base_dir + "/init", conduit)
-    
+
 def predownload_hook(conduit):
     """
     Called just before Yum starts downloads of packages. Plugins may access
     information about the packages to be downloaded here.
     """
-    
+
     base_dir = conduit.confString('main','base_dir',def_base_dir)
     _run_dir(base_dir + "/predownload", conduit)
-    
+
 def postdownload_hook(conduit):
     """
     Called just after Yum finishes package downloads. Plugins may access
     error information about the packages just downloaded.
     """
-    
+
     base_dir = conduit.confString('main','base_dir',def_base_dir)
     _run_dir(base_dir + "/postdownload", conduit)
 
@@ -108,40 +108,40 @@ def prereposetup_hook(conduit):
     """
     Called just before Yum initialises its repository information.
     """
-    
+
     base_dir = conduit.confString('main','base_dir',def_base_dir)
     _run_dir(base_dir + "/prereposetup", conduit)
-    
+
 def postreposetup_hook(conduit):
     """
     Called just after Yum initialises its repository information.
     """
-    
+
     base_dir = conduit.confString('main','base_dir',def_base_dir)
     _run_dir(base_dir + "/postreposetup", conduit);
-    
+
 def exclude_hook(conduit):
     """
     Called after package inclusion and exclusions are processed. Plugins
     may modify package exclusions here.
     """
-    
+
     base_dir = conduit.confString('main','base_dir',def_base_dir)
     _run_dir(base_dir + "/exclude", conduit);
-    
+
 def preresolve_hook(conduit):
     """
     Called before Yum begins package resolution.
     """
-    
+
     base_dir = conduit.confString('main','base_dir',def_base_dir)
     _run_dir(base_dir + "/preresolve", conduit);
-    
+
 def postresolve_hook(conduit):
     """
     Called just after Yum finishes package resolution.
     """
-    
+
     base_dir = conduit.confString('main','base_dir',def_base_dir)
     _run_dir(base_dir + "/postresolve", conduit);
 
@@ -149,9 +149,9 @@ def pretrans_hook(conduit):
     """
     Called before Yum begins the RPM update transation.
     """
-    
+
     base_dir = conduit.confString('main','base_dir',def_base_dir)
-            
+
     _run_pkg_dirs(base_dir, conduit, 'pretrans');
     _run_dir(base_dir + "/pretrans", conduit);
 
@@ -159,27 +159,27 @@ def posttrans_hook(conduit):
     """
     Called just after Yum has finished the RPM update transation.
     """
-    
+
     base_dir = conduit.confString('main','base_dir',def_base_dir)
-            
+
     _run_pkg_dirs(base_dir, conduit, 'posttrans')
     _run_dir(base_dir + "/posttrans", conduit)
-    
+
 def close_hook(conduit):
     """
     Called as Yum is performing a normal exit. Plugins may wish to
     perform cleanup functions here.
     """
-    
+
     base_dir = conduit.confString('main','base_dir',def_base_dir)
     _run_dir(base_dir + "/close", conduit);
-    
+
 def clean_hook(conduit):
     """
-    Called during Yum's cleanup.  This slot will be executed when Yum 
+    Called during Yum's cleanup.  This slot will be executed when Yum
     is run with the parameters 'clean all' or 'clean plugins'.
     """
-    
+
     base_dir = conduit.confString('main','base_dir',def_base_dir)
     _run_dir(base_dir + "/clean", conduit);
 
