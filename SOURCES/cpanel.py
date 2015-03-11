@@ -26,6 +26,7 @@ def _run_dir(dir, conduit, args = ''):
 
     # TODO/YAGNI?: if yum called w/ --quiet: hide output from system() && do not call conduit.info()
     # TODO/YAGNI?: if yum called w/ --verbose also output pre/post "running $cmd" region markers
+    # TODO: under dry run do nto run scripts just note that they would have been
 
     for script in glob.glob(dir + "/*"):
         if (os.access(script, os.X_OK)):
