@@ -30,7 +30,7 @@ def _run_dir(dir, conduit, args = ''):
     for script in glob.glob(dir + "/*"):
         if (os.access(script, os.X_OK)):
 
-            # TODO: if exit is ??? raise PluginYumExit("!!!! " + script + " said it was time to stop");
+            # TODO/YAGNI?: if exit is ??? raise PluginYumExit("!!!! " + script + " said it was time to stop");
             if (len(args)):
                 exit = os.system(script + ' ' + args)
                 if(exit != 0):
@@ -62,7 +62,7 @@ def _run_pkg_dirs(base_dir, conduit, slot):
         # TODO/YAGNI?: set state to a normalized 'not_installed' 'updatable' 'installed' and pass as third arg to _run_dir()
         #    This is helpful so scripts don't have to decifer the meaning of obtuse values.
         #    It is also very tricky as the various state values (member.current_state, member.output_state, member.po.state, member.ts_state) are crazy, e.g.:
-        #       Doing a reinstall member.current_state was 70 which means not installed per http://yum.baseurl.org/api/yum-3.2.26/yum.constants-module.html (which can be broght in via 'from yum.constants import *').
+        #       Doing a reinstall member.current_state was 70 which means not installed per http://yum.baseurl.org/api/yum-3.2.26/yum.constants-module.html (which can be brought in via 'from yum.constants import *').
 
         pkg = member.name
         _run_dir(base_dir + "/pkgs/" + pkg + "/" + slot, conduit);
