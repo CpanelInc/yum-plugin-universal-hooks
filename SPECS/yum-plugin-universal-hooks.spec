@@ -1,6 +1,6 @@
 Name: yum-plugin-cpanel
 Version: 0.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Yum Plugin for cPanel servers
 
 Group: Development/Tools
@@ -16,20 +16,23 @@ cPanel and 3rdparty developers can use this plugin to execute commands at variou
 rm -rf %{buildroot}
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum/pluginconf.d
 mkdir -p $RPM_BUILD_ROOT%{yum_pluginslib}
-install -m 644 %_sourcedir/cpanel.conf $RPM_BUILD_ROOT%{_sysconfdir}/yum/pluginconf.d/cpanel.conf
-install -m 755 %_sourcedir/cpanel.py $RPM_BUILD_ROOT%{yum_pluginslib}/cpanel.py
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum/cpanel
+install -m 644 %_sourcedir/universal-hooks.conf $RPM_BUILD_ROOT%{_sysconfdir}/yum/pluginconf.d/universal-hooks.conf
+install -m 755 %_sourcedir/universal-hooks.py $RPM_BUILD_ROOT%{yum_pluginslib}/universal-hooks.py
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum/universal-hooks
 
 %clean
 rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%{yum_pluginslib}/cpanel.py*
-%config(noreplace) %{_sysconfdir}/yum/pluginconf.d/cpanel.conf
-%{_sysconfdir}/yum/cpanel
+%{yum_pluginslib}/universal-hooks.py*
+%config(noreplace) %{_sysconfdir}/yum/pluginconf.d/universal-hooks.conf
+%{_sysconfdir}/yum/universal-hooks
 
 %changelog
+* Wed May 06 2015 Dan Muey <dan@cpanel.net> - 0.1-5
+- Rename to a more descriptive, non-cpanel specific name (since it can be used on any server)
+
 * Wed May 06 2015 Dan Muey <dan@cpanel.net> - 0.1-4
 - Update license from cpanel to BSD 2-Clause
 
