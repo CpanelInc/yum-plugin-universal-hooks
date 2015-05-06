@@ -1,6 +1,6 @@
 Name: yum-plugin-cpanel
 Version: 0.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Yum Plugin for cPanel servers
 
 Group: Development/Tools
@@ -30,6 +30,9 @@ rm -rf %{buildroot}
 %{_sysconfdir}/yum/cpanel
 
 %changelog
+* Wed May 06 2015 Dan Muey <dan@cpanel.net> - 0.1-4
+- Update license from cpanel to BSD 2-Clause
+
 * Tue Mar 10 2015 Dan Muey <dan@cpanel.net> - 0.1-3
 - use yum_pluginslib instead of _libdir for the plugins path
 
