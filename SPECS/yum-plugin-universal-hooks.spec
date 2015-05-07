@@ -1,10 +1,11 @@
 Name: yum-plugin-universal-hooks
 Version: 0.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Yum plugin to run arbitrary commands at any slot. For slots involving package transactions it can be limited to a specific name or glob.
 
 Group: Development/Tools
 License: BSD 2-Clause
+Vendor: cPanel, Inc.
 Requires: yum-utils
 
 %define yum_pluginslib  /usr/lib/yum-plugins
@@ -30,6 +31,11 @@ rm -rf %{buildroot}
 %{_sysconfdir}/yum/universal-hooks
 
 %changelog
+* Thu May 07 2015 Dan Muey <dan@cpanel.net> - 0.1-6
+- Add Vendor field
+- Add README.md version of internal wiki doc
+- Overlooked name updates
+
 * Wed May 06 2015 Dan Muey <dan@cpanel.net> - 0.1-5
 - Rename to a more descriptive, non-cpanel specific name (since it can be used on any server)
 
