@@ -1,16 +1,16 @@
-Name: yum-plugin-cpanel
+Name: yum-plugin-universal-hooks
 Version: 0.1
 Release: 5%{?dist}
-Summary: Yum Plugin for cPanel servers
+Summary: Yum plugin to run arbitrary commands at any slot. For slots involving package transactions it can be limited to a specific name or glob.
 
 Group: Development/Tools
-License: cPanel
+License: BSD 2-Clause
 Requires: yum-utils
 
 %define yum_pluginslib  /usr/lib/yum-plugins
 
 %description
-cPanel and 3rdparty developers can use this plugin to execute commands at various points in the yum process on cPanel servers.
+This plugin allows us to drop scripts into certain paths in order to run arbitrary actions during any slot yum supports. It can be for all packages or, if the slot involves a transaction with packages involved, for specific packages or packages that match a certain wildcard patterns.
 
 %install
 rm -rf %{buildroot}
