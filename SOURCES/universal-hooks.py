@@ -24,7 +24,7 @@ from yum.plugins import PluginYumExit, TYPE_CORE, TYPE_INTERACTIVE
 requires_api_version = '2.3'
 plugin_type = (TYPE_CORE, TYPE_INTERACTIVE)
 
-def_base_dir = '/etc/yum/cpanel';
+def_base_dir = '/etc/yum/universal-hooks';
 
 # conduit object info http://sourcecodebrowser.com/yum/2.4.0/namespaceyum_1_1plugins.html
 
