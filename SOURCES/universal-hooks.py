@@ -42,7 +42,7 @@ def _run_dir(dir, conduit, args = ''):
     # TODO/YAGNI?: if yum called w/ --verbose also output pre/post "running $cmd" region markers
     # TODO: under dry run do nto run scripts just note that they would have been
 
-    for script in glob.glob(dir + "/*"):
+    for script in sorted(glob.glob(dir + "/*")):
         if (os.access(script, os.X_OK)):
 
             # TODO/YAGNI?: if exit is ??? raise PluginYumExit("!!!! " + script + " said it was time to stop");

@@ -1,6 +1,6 @@
 Name: yum-plugin-universal-hooks
 Version: 0.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Yum plugin to run arbitrary commands at any slot. For slots involving package transactions it can be limited to a specific name or glob.
 
 Group: Development/Tools
@@ -31,6 +31,9 @@ rm -rf %{buildroot}
 %{_sysconfdir}/yum/universal-hooks
 
 %changelog
+* Wed Jun 03 2015 Darren Mobley <darren@cpanel.net> - 0.1-7
+- Added sort function to glob to ensure scripts are run in expected order
+
 * Thu May 07 2015 Dan Muey <dan@cpanel.net> - 0.1-6
 - Add Vendor field
 - Add README.md version of internal wiki doc
