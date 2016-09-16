@@ -18,7 +18,7 @@
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import os, glob, re
+import os, glob, re, tempfile
 from yum.plugins import PluginYumExit, TYPE_CORE, TYPE_INTERACTIVE
 
 requires_api_version = '2.3'
@@ -72,6 +72,9 @@ def _run_pkg_dirs(base_dir, conduit, slot):
             wildcard_list[path] = regx
     wildcard_to_run = {};
 
+    # Get a temp file for writing package names to
+    pkgs_file_path = tempfile.NamedTemporaryFile()
+
     for member in ts.getMembers():
 
         # TODO/YAGNI?: set state to a normalized 'not_installed' 'updatable' 'installed' and pass as third arg to _run_dir()
@@ -80,7 +83,10 @@ def _run_pkg_dirs(base_dir, conduit, slot):
         #       Doing a reinstall member.current_state was 70 which means not installed per http://yum.baseurl.org/api/yum-3.2.26/yum.constants-module.html (which can be brought in via 'from yum.constants import *').
 
         pkg = member.name
-        _run_dir(base_dir + "/pkgs/" + pkg + "/" + slot, conduit);
+        pkgs_file_path.write(pkg + "\n") 
+        pkgs_file_path.flush()
+
+        _run_dir(base_dir + "/pkgs/" + pkg + "/" + slot, conduit)
 
         # note any __WILDCARD__ that need to run for pkg
         for wc in wildcard_list:
@@ -89,7 +95,11 @@ def _run_pkg_dirs(base_dir, conduit, slot):
 
     # call _run_dir on any __WILDCARD__ paths that match the pkg
     for wc_dir in wildcard_to_run:
-        _run_dir(wc_slot_dir + "/" + wc_dir, conduit)
+        _run_dir(wc_slot_dir + "/" + wc_dir, conduit, "--pkg_list=" + pkgs_file_path.name )
+
+    # Close our packages file handle
+    pkgs_file_path.close()
+
 
 def config_hook(conduit):
     """
