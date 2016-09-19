@@ -1,7 +1,7 @@
 Name: yum-plugin-universal-hooks
 Version: 0.1
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4598 for more details
-%define release_prefix 8
+%define release_prefix 9
 Release: %{release_prefix}%{?dist}.cpanel
 Summary: Yum plugin to run arbitrary commands at any slot. For slots involving package transactions it can be limited to a specific name or glob.
 
@@ -33,6 +33,12 @@ rm -rf %{buildroot}
 %{_sysconfdir}/yum/universal-hooks
 
 %changelog
+
+* Fri Sep 16 2016 Darren Mobley <darren@cpanel.net> - 0.1-9
+- HB-1952: Added support for sending an argument of --pkglist=/path/to/file
+  that has a line by line list of each rpm package being handled by the 
+  current operation to the wildcard scripts
+
 * Mon Jun 20 2016 Dan Muey <dan@cpanel.net> - 0.1-8
 - EA-4383: Update Release value to OBS-proof versioning
 
