@@ -12,7 +12,8 @@ Assuming you have a yum repo that contains this plugin:
     *   script output is not hindered
     *   if it exits non-zero it will have a warning to that effect
     *   if it is not executable it will have a warning to that effect
-    *   there is currently one argument passed to the script, --pkg_list=/path/to/randomlynamefile that has a list of packages being operated on, one per line of the file
+    *   for wildcard matches there is currently one argument passed to the script, --pkg_list=/path/to/randomlynamefile that has a list of packages being operated on, one per line of the file
+        * non-wildcard matches will have no arguments
     *   there are a number of TODOs/YAGNIs noted in the source code
 3.  Like any yum plugin it can be disabled via its config or via the command line.
 4.  `/etc/yum/universal-hooks/` will remain if you `yum remove yum-plugin-universal-hooks` so that any scripts will be available when re-installed.
