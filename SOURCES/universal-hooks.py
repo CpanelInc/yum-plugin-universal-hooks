@@ -75,7 +75,13 @@ def _run_pkg_dirs(base_dir, conduit, slot):
     # Get a temp file for writing package names to
     pkgs_file_path = tempfile.NamedTemporaryFile()
 
-    for member in ts.getMembers():
+    members_seen = {}
+    members = ts.getMembers()
+    for member in list(set(members)):
+        if members_seen.has_key(member.name):
+            continue
+
+        members_seen[member.name] = 1
 
         # TODO/YAGNI?: set state to a normalized 'not_installed' 'updatable' 'installed' and pass as third arg to _run_dir()
         #    This is helpful so scripts don't have to decifer the meaning of obtuse values.
