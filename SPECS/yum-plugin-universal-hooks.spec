@@ -10,6 +10,10 @@ License: BSD 2-Clause
 Vendor: cPanel, Inc.
 Requires: yum-utils
 
+%if 0%{?rhel} >= 8
+Requires: python27
+%endif
+
 %define yum_pluginslib  /usr/lib/yum-plugins
 
 %description
@@ -22,6 +26,11 @@ mkdir -p $RPM_BUILD_ROOT%{yum_pluginslib}
 install -m 644 %_sourcedir/universal-hooks.conf $RPM_BUILD_ROOT%{_sysconfdir}/yum/pluginconf.d/universal-hooks.conf
 install -m 755 %_sourcedir/universal-hooks.py $RPM_BUILD_ROOT%{yum_pluginslib}/universal-hooks.py
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum/universal-hooks
+
+%if 0%{?rhel} >= 8
+sed -i 's:^#!/usr/bin/python$:#!/usr/bin/python2:' $RPM_BUILD_ROOT%{yum_pluginslib}/universal-hooks.py
+cat $RPM_BUILD_ROOT%{yum_pluginslib}/universal-hooks.py
+%endif
 
 %clean
 rm -rf %{buildroot}
