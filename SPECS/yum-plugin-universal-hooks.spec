@@ -1,7 +1,7 @@
 Name: yum-plugin-universal-hooks
 Version: 0.1
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4598 for more details
-%define release_prefix 10
+%define release_prefix 11
 Release: %{release_prefix}%{?dist}.cpanel
 Summary: Yum plugin to run arbitrary commands at any slot. For slots involving package transactions it can be limited to a specific name or glob.
 
@@ -33,6 +33,9 @@ rm -rf %{buildroot}
 %{_sysconfdir}/yum/universal-hooks
 
 %changelog
+* Tue May 26 2020 Julian Brown <julian.brown@cpanel.net> - 0.1-11
+- ZC-6880: Build on C8
+
 * Mon Sep 09 2019 Dan Muey <dan@cpanel.net> - 0.1-10
 - ZC-5357: skip duplicate members to avoid running a hook more than once for no reason
 
