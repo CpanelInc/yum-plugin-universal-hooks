@@ -63,7 +63,7 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
-* Mon July 06 2020 Dan Muey <dan@cpanel.net> - 0.1-12
+* Mon Jul 06 2020 Dan Muey <dan@cpanel.net> - 0.1-12
 - ZC-7100: install dnf version on C8 and above
 
 * Tue May 26 2020 Julian Brown <julian.brown@cpanel.net> - 0.1-11
