@@ -1,7 +1,7 @@
 Name: yum-plugin-universal-hooks
 Version: 0.1
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4598 for more details
-%define release_prefix 11
+%define release_prefix 12
 Release: %{release_prefix}%{?dist}.cpanel
 Summary: Yum plugin to run arbitrary commands at any slot. For slots involving package transactions it can be limited to a specific name or glob.
 

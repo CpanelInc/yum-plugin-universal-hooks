@@ -5,7 +5,7 @@ This plugin allows us to run scripts at various entry points in the yum process 
 Assuming you have a yum repo that contains this plugin:
 
 1.  `yum install yum-plugin-universal-hooks` # install a plugin called 'universal-hooks'
-    *   when you run yum you should see something like: 
+    *   when you run yum you should see something like:
         *   Loaded plugins: universal-hooks, fastestmirror, …
 
 2.  add scripts to the appropriate place in `/etc/yum/universal-hooks/` (manually, via an RPM installation, etc)
@@ -31,7 +31,7 @@ The main directory can have the following directories:
         *   Those directories can contain directories, for arbitrary scripts to go in, named after each yum “slot” [*].
             *   Currently only “pretrans” and “posttrans” are package specific.
         *   e.g. `/etc/yum/universal-hooks/pkgs/perl/posttrans/whatever.sh`
-            
+
 *   A directory called “multi_pkgs” that will contains scripts for multiple packages.
     *   Contains a directory named after each yum “slot” [*].
         *   Currently only “pretrans” and “posttrans” are package specific.
@@ -63,9 +63,9 @@ config
     configuration files or command line options should do so during this slot.
 
 postconfig
-    Called immediately after Yum's config object is initialised. Useful for 
-    extending variables or modifying items in the config, for example the 
-    $ variables that are used in repo configuration. 
+    Called immediately after Yum's config object is initialised. Useful for
+    extending variables or modifying items in the config, for example the
+    $ variables that are used in repo configuration.
     Note: Only available in yum 3.1.7 or later
 
 init
@@ -107,6 +107,6 @@ close
     perform cleanup functions here.
 
 clean
-    Called during Yum's cleanup.  This slot will be executed when Yum 
+    Called during Yum's cleanup.  This slot will be executed when Yum
     is run with the parameters 'clean all' or 'clean plugins'.
 ```
