@@ -97,7 +97,7 @@ rm -rf %{buildroot}
 * Tue Mar 10 2015 Dan Muey <dan@cpanel.net> - 0.1-3
 - use yum_pluginslib instead of _libdir for the plugins path
 
-* Thu Mar 06 2015 Dan Muey <dan@cpanel.net> - 0.1-2
+* Fri Mar 06 2015 Dan Muey <dan@cpanel.net> - 0.1-2
 - path fixes
 
 * Thu Mar 05 2015 Dan Muey <dan@cpanel.net> - 0.1-1
