@@ -11,6 +11,7 @@ Vendor: cPanel, Inc.
 Requires: yum-utils
 
 %if 0%{?rhel} >= 8
+BuildRequires: python36
 Requires: python36
 Provides: dnf-plugin-universal-hooks
 %endif
