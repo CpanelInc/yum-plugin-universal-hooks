@@ -52,7 +52,7 @@ rm -rf %{buildroot}
 %{dnf_pluginslib}/universal_hooks.py
 %{dnf_pluginslib}__pycache__/universal_hooks.cpython-36.opt-1.pyc
 %{dnf_pluginslib}__pycache__/universal_hooks.cpython-36.pyc
-%config(noreplace) %{_sysconfdir}/dnf/plugins/universal-hooks.conf
+%config(noreplace) %{_sysconfdir}/dnf/plugins/universal_hooks.conf
 %{_sysconfdir}/dnf/universal-hooks
 
 %else
