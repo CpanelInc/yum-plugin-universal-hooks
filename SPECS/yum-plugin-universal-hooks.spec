@@ -30,7 +30,6 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/dnf/plugins
 mkdir -p $RPM_BUILD_ROOT%{dnf_pluginslib}/__pycache__/
 install -m 644 %_sourcedir/universal-hooks.conf $RPM_BUILD_ROOT%{_sysconfdir}/dnf/plugins/universal_hooks.conf
 install -m 755 %_sourcedir/universal-hooks-DNF.py $RPM_BUILD_ROOT%{dnf_pluginslib}/universal_hooks.py
-PYTHONPATH=$RPM_BUILD_ROOT%{dnf_pluginslib}/ /usr/bin/python3.6 -c 'import universal_hooks'
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/dnf/universal-hooks
 
 %else
@@ -51,7 +50,8 @@ rm -rf %{buildroot}
 %if 0%{?rhel} >= 8
 
 %{dnf_pluginslib}/universal_hooks.py
-%{dnf_pluginslib}/__pycache__/universal-hooks.cpython-36.pyc
+%{dnf_pluginslib}__pycache__/universal_hooks.cpython-36.opt-1.pyc
+%{dnf_pluginslib}__pycache__/universal_hooks.cpython-36.pyc
 %config(noreplace) %{_sysconfdir}/dnf/plugins/universal-hooks.conf
 %{_sysconfdir}/dnf/universal-hooks
 
