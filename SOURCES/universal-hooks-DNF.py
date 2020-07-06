@@ -108,6 +108,9 @@ def _run_dir(hook_dir, log, args=''):
         return None
 
     for script in sorted(fs.glob(hook_dir + "/*")):
+        if fs.isdir(script):
+            continue
+
         if fs.access(script, os.X_OK):
             cmdline = f'{script} {args}'
             completed = subprocess.run(cmdline, shell=True)  # todo change args to a list, shell=False
