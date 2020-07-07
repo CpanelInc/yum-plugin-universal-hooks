@@ -80,16 +80,6 @@ transaction()
 
 # Testing
 
-## Live Test
-
-Note: [install-zsh-test-hooks.sh](./install-test-zsh-hooks.sh) will create some dummy hook scripts for `zsh` RPM.
-
-1. `dnf install yum-plugin-universal-hooks`
-2. cd into repo on C8 box
-3. `./install-test-zsh-hooks.sh`
-4. `dnf install -y zsh`
-5. Note the output shows that they were executed properly
-
 ## Unit Tests
 
 1. cd into repo on C8 box
