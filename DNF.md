@@ -77,3 +77,19 @@ transaction()
 ```
 
 **Note:** From YUM to DNF plugins [there is not always a one-to-one mapping of the YUM slot to the DNF hook point](https://dnf.readthedocs.io/en/latest/api_vs_yum.html#changes-in-the-dnf-hook-api-compared-to-yum).
+
+# Testing
+
+## Live Test
+
+Note: [install-zsh-test-hooks.sh](./install-test-zsh-hooks.sh) will create some dummy hook scripts for `zsh` RPM.
+
+1. cd into repo on C8 box
+2. `./install-test-zsh-hooks.sh`
+3. `dnf install -y zsh`
+4. Note the output shows that they were executed properly
+
+## Unit Tests
+
+1. cd into repo on C8 box
+2. `/usr/bin/python3.6 -m unittest discover test`
