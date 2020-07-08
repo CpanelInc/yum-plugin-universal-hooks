@@ -1,3 +1,5 @@
 SRPMS
 RPMS
 OBS
+__pycache__/
+test/__pycache__/
