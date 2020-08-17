@@ -1,7 +1,7 @@
 Name: yum-plugin-universal-hooks
 Version: 0.1
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4598 for more details
-%define release_prefix 10
+%define release_prefix 12
 Release: %{release_prefix}%{?dist}.cpanel
 Summary: Yum plugin to run arbitrary commands at any slot. For slots involving package transactions it can be limited to a specific name or glob.
 
@@ -10,29 +10,66 @@ License: BSD 2-Clause
 Vendor: cPanel, Inc.
 Requires: yum-utils
 
+%if 0%{?rhel} >= 8
+BuildRequires: python36 dnf python3-dnf python3-libdnf
+Requires: python36 dnf python3-dnf python3-libdnf
+Provides: dnf-plugin-universal-hooks
+%endif
+
 %define yum_pluginslib  /usr/lib/yum-plugins
+%define dnf_pluginslib  /usr/lib/python3.6/site-packages/dnf-plugins/
 
 %description
-This plugin allows us to drop scripts into certain paths in order to run arbitrary actions during any slot yum supports. It can be for all packages or, if the slot involves a transaction with packages involved, for specific packages or packages that match a certain wildcard patterns.
+This plugin allows us to drop scripts into certain paths in order to run arbitrary actions during any slot dnf or yum supports. It can be for all packages or, if the slot involves a transaction with packages involved, for specific packages or packages that match a certain wildcard patterns.
 
 %install
 rm -rf %{buildroot}
+%if 0%{?rhel} >= 8
+
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/dnf/plugins
+mkdir -p $RPM_BUILD_ROOT%{dnf_pluginslib}/__pycache__/
+install -m 644 %_sourcedir/universal-hooks.conf $RPM_BUILD_ROOT%{_sysconfdir}/dnf/plugins/universal_hooks.conf
+install -m 755 %_sourcedir/universal-hooks-DNF.py $RPM_BUILD_ROOT%{dnf_pluginslib}/universal_hooks.py
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/dnf/universal-hooks
+
+%else
+
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum/pluginconf.d
 mkdir -p $RPM_BUILD_ROOT%{yum_pluginslib}
 install -m 644 %_sourcedir/universal-hooks.conf $RPM_BUILD_ROOT%{_sysconfdir}/yum/pluginconf.d/universal-hooks.conf
-install -m 755 %_sourcedir/universal-hooks.py $RPM_BUILD_ROOT%{yum_pluginslib}/universal-hooks.py
+install -m 755 %_sourcedir/universal-hooks-YUM.py $RPM_BUILD_ROOT%{yum_pluginslib}/universal-hooks.py
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum/universal-hooks
+
+%endif
 
 %clean
 rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
+%if 0%{?rhel} >= 8
+
+%{dnf_pluginslib}/universal_hooks.py
+%{dnf_pluginslib}__pycache__/universal_hooks.cpython-36.opt-1.pyc
+%{dnf_pluginslib}__pycache__/universal_hooks.cpython-36.pyc
+%config(noreplace) %{_sysconfdir}/dnf/plugins/universal_hooks.conf
+%{_sysconfdir}/dnf/universal-hooks
+
+%else
+
 %{yum_pluginslib}/universal-hooks.py*
 %config(noreplace) %{_sysconfdir}/yum/pluginconf.d/universal-hooks.conf
 %{_sysconfdir}/yum/universal-hooks
 
+%endif
+
 %changelog
+* Mon Jul 06 2020 Dan Muey <dan@cpanel.net> - 0.1-12
+- ZC-7100: install dnf version on C8 and above
+
+* Tue May 26 2020 Julian Brown <julian.brown@cpanel.net> - 0.1-11
+- ZC-6880: Build on C8
+
 * Mon Sep 09 2019 Dan Muey <dan@cpanel.net> - 0.1-10
 - ZC-5357: skip duplicate members to avoid running a hook more than once for no reason
 
@@ -61,7 +98,7 @@ rm -rf %{buildroot}
 * Tue Mar 10 2015 Dan Muey <dan@cpanel.net> - 0.1-3
 - use yum_pluginslib instead of _libdir for the plugins path
 
-* Thu Mar 06 2015 Dan Muey <dan@cpanel.net> - 0.1-2
+* Fri Mar 06 2015 Dan Muey <dan@cpanel.net> - 0.1-2
 - path fixes
 
 * Thu Mar 05 2015 Dan Muey <dan@cpanel.net> - 0.1-1
