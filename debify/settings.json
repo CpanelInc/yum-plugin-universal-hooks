@@ -1,0 +1,5 @@
+{
+    "remove_from_requires": [
+        "yum-utils"
+    ]
+}
