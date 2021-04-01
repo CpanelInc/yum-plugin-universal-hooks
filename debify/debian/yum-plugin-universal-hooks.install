@@ -1,3 +1,1 @@
-universal-hooks.conf /etc/apt/pluginconf.d
-apt/universal-hooks /etc/apt
-universal-hooks.py /usr/lib/apt-plugins
+README.txt /etc/apt/universal-hooks

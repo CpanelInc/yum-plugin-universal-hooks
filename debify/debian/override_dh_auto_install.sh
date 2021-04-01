@@ -2,9 +2,8 @@
 
 source debian/vars.sh
 
-# TILL WE can work this out, we go with DNF
+echo "TO BE DONE in case ZC-8252" > README.txt
+echo "PWD" `pwd`
 ls -ld *
+mkdir -p $DEB_INSTALL_ROOT/etc/apt/universal-hooks
 
-cp universal-hooks-DNF.py universal-hooks.py
-chmod a+x universal-hooks.py
-mkdir -p apt/universal-hooks
