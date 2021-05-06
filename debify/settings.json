@@ -10,5 +10,8 @@
             "apt-plugin-universal-hooks"
         ]
     },
+    "add_to_sources": [
+        "apt-universal-hooks.pl"
+    ],
     "dont_override_install": 0
 }

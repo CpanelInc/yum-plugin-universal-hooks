@@ -1,1 +1,2 @@
-README.txt /etc/apt/universal-hooks
+apt-universal-hooks.conf /etc/apt/apt.conf.d
+apt-universal-hooks.pl /etc/apt/universal-hooks

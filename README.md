@@ -9,6 +9,7 @@ This plugin allows us to run scripts at various entry points in the yum or dnf p
 * [Design Doc](DESIGN.md)
 * [DNF Plugin Documentation](DNF.md)
 * [YUM Plugin Documentation](YUM.md)
+* [APT Plugin Documentation](APT.md)
 
 Note: On dnf based systems it requires Python 3.6 and also `Provides: dnf-plugin-universal-hooks`.
 
@@ -18,6 +19,7 @@ Note:
 
 * [install-zsh-test-hooks.sh](./install-test-zsh-hooks.sh) will create some dummy hook scripts for `zsh` RPM.
 * on `dnf` systems you can use the `dnf` command instead of `yum` if you like
+* on `apt` systems you must use `apt` instead of `yum`
 
 1. `yum install yum-plugin-universal-hooks`
 2. cd into repo

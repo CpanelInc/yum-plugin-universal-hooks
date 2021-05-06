@@ -11,15 +11,17 @@
 
 CentOS 8 replaced `yum` with a new package manager named `dnf`. The `dnf` hook system is *not* backwards compatible with `yum` [[1]]. Third-parties may rely on the cPanel universal hooks plugin and it is difficult to know if they use hooks that are not available in `dnf`.
 
+Ubuntu uses `apt` which is very different than RPM based systems.
+
 ## Overall Intent
 
-To have the same experience on `dnf` systems as `yum` as far as universal hooks go.
+To have the same experience on `dnf` and `apt` systems as `yum` as far as universal hooks go.
 
-### Hooks must fire for `dnf` like they do for `yum`
+### Hooks must fire for `dnf` and `apt` like they do for `yum`
 
 Otherwise things will be left in weird state because the hooks do things like update configutation and restart services.
 
-There is not a one-to-one mapping from `yum` “slots” to `dnf` hook points [[1]]. Fortunately we only use the `posttrans` slot which does exist in `dnf` as the `transaction` hook point. That is likely to be true of the majority of users. If not we have documentation thay can use to make a decision on what to do.
+There is not a one-to-one mapping from `yum` “slots” to `dnf` and `apt` hook points [[1]]. Fortunately we only use the `posttrans` slot which does exist in `dnf` as the `transaction` hook point and in `apt` as `Post-Invoke`. That is likely to be true of the majority of users. If not we have documentation thay can use to make a decision on what to do.
 
 ### Hook installers must install the scripts to the correct places
 
@@ -29,11 +31,15 @@ For `yum` systems that package must install its scripts under `/etc/yum/universa
 
 For `dnf` systems that package must install its scripts under `/etc/dnf/universal-hooks` using the `transaction` hook point.
 
+For `apt` systems that package must install its scripts under `/etc/apt/universal-hooks` using the `Post-Invoke` hook point.
+
 ### The plugin should just work on any supported OS
 
 Existing code (ours and possibly 3rdparty) need to be considered.
 
 ## Maintainability
+
+Note: this part only mentions `yum` and `dnf` but the same ideas apply even when we add `apt` to the mix.
 
 Estimate:
 
@@ -42,7 +48,7 @@ Estimate:
 
 Very little, the python API doesn’t change much and when it did they came up with a whole new system (i.e. `dnf`).
 
-Its possible that `dnf` will add hook points whcih we can then support [[2]].
+Its possible that `dnf` will add hook points which we can then support [[2]].
 
 ## Options/Decisions
 
