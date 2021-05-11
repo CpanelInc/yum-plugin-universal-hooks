@@ -5,9 +5,12 @@
     "remove_from_provides": [
         "dnf-plugin-universal-hooks"
     ],
+    "rename_packages": {
+        "yum-plugin-universal-hooks": "apt-plugin-universal-hooks"
+    },
     "add_to_provides": {
-        "yum-plugin-universal-hooks": [
-            "apt-plugin-universal-hooks"
+        "apt-plugin-universal-hooks": [
+            "yum-plugin-universal-hooks"
         ]
     },
     "add_to_sources": [
