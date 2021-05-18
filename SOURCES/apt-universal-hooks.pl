@@ -37,6 +37,8 @@ my $basedir = "/etc/apt/universal-hooks";
 my $txn_id = _get_txn_id();
 my $txpath = "/tmp/apt.$txn_id.txn-pkgs";
 
+_debug_out("DEBUG:\n\tHook Point: $hook_point\n\t/tmp/apt.$txn_id.txn-pkgs") if $ENV{APT_UNIVERSAL_HOOKS_DEBUG};
+
 if ( exists $ENV{APT_HOOK_INFO_FD} ) {
     open( my $apt_fh, "<&=", $ENV{APT_HOOK_INFO_FD} ) or die "open <&= $ENV{APT_HOOK_INFO_FD} failed: $!\n";
     _debug_out("have APT_HOOK_INFO_FD") if $ENV{APT_UNIVERSAL_HOOKS_DEBUG};
