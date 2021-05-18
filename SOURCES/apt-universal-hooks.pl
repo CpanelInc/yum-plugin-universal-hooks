@@ -21,6 +21,8 @@
 use strict;
 use warnings;
 
+use Digest::MD5 qw(md5_hex);
+
 # We only support the DPkg:: version of these hook points, if that ever changes
 #  this will need updated here and in apt-universal-hooks.conf
 my %hook_points = (
@@ -113,12 +115,15 @@ sub _get_txn_id {
     $res =~ s/\s+/ /g;
     $res =~ s{/}{__SLASH__}g;
 
+    my $txnid = md5_hex($res);
+
     if ( $ENV{APT_UNIVERSAL_HOOKS_DEBUG} ) {
         _debug_out("TXN PIDs: $$, $pp, $gp, $gg");
         _debug_out("TXN Uniq: -$res-");
+        _debug_out("TXN ID  : -$txnid-");
     }
 
-    return $res;
+    return $txnid;
 }
 
 sub _debug_out {
