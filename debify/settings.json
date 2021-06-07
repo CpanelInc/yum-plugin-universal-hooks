@@ -1,0 +1,20 @@
+{
+    "remove_from_requires": [
+        "yum-utils"
+    ],
+    "remove_from_provides": [
+        "dnf-plugin-universal-hooks"
+    ],
+    "rename_packages": {
+        "yum-plugin-universal-hooks": "apt-plugin-universal-hooks"
+    },
+    "add_to_provides": {
+        "apt-plugin-universal-hooks": [
+            "yum-plugin-universal-hooks"
+        ]
+    },
+    "add_to_sources": [
+        "apt-universal-hooks.pl"
+    ],
+    "dont_override_install": 0
+}

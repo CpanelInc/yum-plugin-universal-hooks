@@ -15,6 +15,15 @@ HOOK_DIRS='
 '
 fi
 
+if [ -x "/usr/bin/apt" ];
+then
+HOOK_DIRS='
+/etc/apt/universal-hooks/Post-Invoke
+/etc/apt/universal-hooks/pkgs/zsh/Post-Invoke
+/etc/apt/universal-hooks/multi_pkgs/Post-Invoke/zs__WILDCARD__
+'
+fi
+
 for d in $HOOK_DIRS; do
     hook_script=$d/test-hook.sh
 
