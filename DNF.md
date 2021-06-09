@@ -32,7 +32,7 @@ The main directory can have the following directories:
         *   e.g. `/etc/dnf/universal-hooks/pkgs/perl/transaction/whatever.sh`
 
 *   A directory called “multi_pkgs” that will contains scripts for multiple packages.
-    *   Contains a directory named after each snf hook point [*].
+    *   Contains a directory named after each dnf hook point [*].
         *   Currently only “pre_transaction” and “transaction” are package specific.
         *   Those directories can contain “wildcard” directories, for arbitrary scripts to go in.
             *   a “wildcard” directory is a directory whose name contains `__WILDCARD__` to stand for .* in Regexp parlance
@@ -42,7 +42,7 @@ The main directory can have the following directories:
             *   If you want to match every package ever involved in a transaction, name it `__WILDCARD__`
                 *   This would be sort of weird though since you can get the same thing from `/etc/dnf/universal-hooks/transaction`
             *   e.g. `/etc/dnf/universal-hooks/multi_pkgs/transaction/ea-__WILDCARD__/whatever.sh`
-                *   That script would run once at the end of a transaction is one or more packages that started with ea- were involved in the transaction.
+                *   That script would run once at the end of a transaction if one or more packages that started with ea- were involved in the transaction.
 
 # Script Execution Order
 
