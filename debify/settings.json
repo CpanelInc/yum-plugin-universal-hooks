@@ -1,6 +1,9 @@
 {
     "remove_from_requires": [
-        "yum-utils"
+        "yum-utils",
+        "dnf",
+        "python3-dnf",
+        "python3-libdnf"
     ],
     "remove_from_provides": [
         "dnf-plugin-universal-hooks"
