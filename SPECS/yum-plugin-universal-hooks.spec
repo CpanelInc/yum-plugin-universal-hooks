@@ -1,7 +1,7 @@
 Name: yum-plugin-universal-hooks
 Version: 0.1
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4598 for more details
-%define release_prefix 12
+%define release_prefix 13
 Release: %{release_prefix}%{?dist}.cpanel
 Summary: Yum plugin to run arbitrary commands at any slot. For slots involving package transactions it can be limited to a specific name or glob.
 
@@ -10,14 +10,26 @@ License: BSD 2-Clause
 Vendor: cPanel, Inc.
 Requires: yum-utils
 
-%if 0%{?rhel} >= 8
+%if 0%{?rhel} == 8
 BuildRequires: python36 dnf python3-dnf python3-libdnf
 Requires: python36 dnf python3-dnf python3-libdnf
 Provides: dnf-plugin-universal-hooks
 %endif
 
+%if 0%{?rhel} == 9
+BuildRequires: python3 dnf python3-dnf python3-libdnf
+Requires: python3 dnf python3-dnf python3-libdnf
+Provides: dnf-plugin-universal-hooks
+%endif
+
 %define yum_pluginslib  /usr/lib/yum-plugins
+
+
+%if 0%{?rhel} == 9
+%define dnf_pluginslib  /usr/lib/python3.9/site-packages/dnf-plugins/
+%else
 %define dnf_pluginslib  /usr/lib/python3.6/site-packages/dnf-plugins/
+%endif
 
 %description
 This plugin allows us to drop scripts into certain paths in order to run arbitrary actions during any slot dnf or yum supports. It can be for all packages or, if the slot involves a transaction with packages involved, for specific packages or packages that match a certain wildcard patterns.
@@ -50,8 +62,15 @@ rm -rf %{buildroot}
 %if 0%{?rhel} >= 8
 
 %{dnf_pluginslib}/universal_hooks.py
+
+%if 0%{?rhel} == 9
+%{dnf_pluginslib}__pycache__/universal_hooks.cpython-39.opt-1.pyc
+%{dnf_pluginslib}__pycache__/universal_hooks.cpython-39.pyc
+%else
 %{dnf_pluginslib}__pycache__/universal_hooks.cpython-36.opt-1.pyc
 %{dnf_pluginslib}__pycache__/universal_hooks.cpython-36.pyc
+%endif
+
 %config(noreplace) %{_sysconfdir}/dnf/plugins/universal_hooks.conf
 %{_sysconfdir}/dnf/universal-hooks
 
@@ -64,6 +83,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Thu Sep 29 2022 Julian Brown <julian.brown@cpanel.net> - 0.1-12
+- ZC-10009: Add changes so that it builds on AlmaLinux 9
+
 * Mon Jul 06 2020 Dan Muey <dan@cpanel.net> - 0.1-12
 - ZC-7100: install dnf version on C8 and above
 
