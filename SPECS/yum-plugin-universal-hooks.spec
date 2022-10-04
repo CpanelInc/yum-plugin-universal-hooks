@@ -37,21 +37,21 @@ This plugin allows us to drop scripts into certain paths in order to run arbitra
 %install
 rm -rf %{buildroot}
 %if 0%{?rhel} >= 8
-
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/dnf/plugins
 mkdir -p $RPM_BUILD_ROOT%{dnf_pluginslib}/__pycache__/
 install -m 644 %_sourcedir/universal-hooks.conf $RPM_BUILD_ROOT%{_sysconfdir}/dnf/plugins/universal_hooks.conf
 install -m 755 %_sourcedir/universal-hooks-DNF.py $RPM_BUILD_ROOT%{dnf_pluginslib}/universal_hooks.py
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/dnf/universal-hooks
-
 %else
-
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum/pluginconf.d
 mkdir -p $RPM_BUILD_ROOT%{yum_pluginslib}
 install -m 644 %_sourcedir/universal-hooks.conf $RPM_BUILD_ROOT%{_sysconfdir}/yum/pluginconf.d/universal-hooks.conf
 install -m 755 %_sourcedir/universal-hooks-YUM.py $RPM_BUILD_ROOT%{yum_pluginslib}/universal-hooks.py
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum/universal-hooks
+%endif
 
+%if 0%{?rhel} == 9
+sed -i "1s:/usr/bin/python3\.6:/usr/bin/python3:" $RPM_BUILD_ROOT%{dnf_pluginslib}/universal_hooks.py
 %endif
 
 %clean
